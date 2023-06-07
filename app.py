@@ -14,6 +14,7 @@ import json
 
 app = Flask(__name__)
 scheduler = BackgroundScheduler(daemon=True)
+is_running = False
 flagsString=""
 status="solving"
 lastFetched=datetime.now()
@@ -64,6 +65,8 @@ def solver():
         global lastFetched
         global status
         global switch
+        global is_running
+        is_running=True
         switch=1
     # with app.app_context():
     # while True:
@@ -271,6 +274,7 @@ def solver():
         lastFetched=datetime.now()
         
         status="script completed | all flags found"
+        is_running=False
         
     
         # yield f'data: {flagsString}\n\n'
@@ -279,8 +283,18 @@ def solver():
         # switch=0
         
 def run_script():
-    thread = threading.Thread(target=solver,daemon=True)
-    thread.start()
+    global status
+    # is_running = any(threading.current_thread().target == solver for thread in threading.enumerate())
+
+    if is_running:
+        status="script is already running"
+
+        print("A thread for solver is already running.")
+    else:
+        status="script initialized"
+        print("No thread for solver is currently running.")
+        thread = threading.Thread(target=solver,daemon=True)
+        thread.start()
 
 
 
@@ -292,6 +306,9 @@ def run_script():
 @app.route('/logs')
 def logs():
     run_script()
+    total_threads = threading.active_count()
+
+    print("Total number of active threads:", total_threads)
     return generate_logs()
 
 if __name__ == '__main__':
