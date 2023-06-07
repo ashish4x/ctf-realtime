@@ -252,12 +252,12 @@ def solver():
 
             if result:
                 # print("Word found:", result)
-                status="last flag found"
+                status="script completed | all flags found"
                 print("Last flag found")
                 # yield 'data: fourth flag found\n\n'
                 flags.append(result)
             else:
-                status="unable to find last flag"
+                status="script completed | Unable to find last flags | retry"
                 print("No word found.")
 
         get_browser()
@@ -270,7 +270,7 @@ def solver():
         flagsString = ', '.join(flags)
         lastFetched=datetime.now()
         
-        status="script completed | all flags found"
+        
         is_running=False
         
     
