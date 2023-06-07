@@ -295,13 +295,24 @@ def run_script():
 
 
 
+@app.route('/starter',methods=['GET', 'POST'])
+def starter():
+    global status
+    
+    if request.method == 'POST':
+        status="Post req made"
+        run_script()
+        return render_template('index.html')
 
 
 
 
-@app.route('/logs')
+@app.route('/logs',methods=['GET', 'POST'])
 def logs():
-    run_script()
+    global status
+    status='log triggered'
+    # if request.method == 'POST':
+    #     run_script()
     total_threads = threading.active_count()
 
     print("Total number of active threads:", total_threads)
