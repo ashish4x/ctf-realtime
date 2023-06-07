@@ -1,4 +1,4 @@
-from flask import Flask,Response,render_template
+from flask import Flask,Response,render_template,request
 from datetime import datetime
 from apscheduler.schedulers.background import BackgroundScheduler
 import asyncio
@@ -25,13 +25,10 @@ seconds_remaining=0
 # status="Not running the script"
 
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
-    # if not scheduler.running:
-    #     print("hii")
-    #     # solver()
-    #     scheduler.add_job(run_script, 'interval', minutes=30,id='solver',next_run_time=datetime.now())
-    #     scheduler.start()
+    
+  
     
     return render_template('index.html')
 
@@ -295,7 +292,6 @@ def run_script():
         print("No thread for solver is currently running.")
         thread = threading.Thread(target=solver,daemon=True)
         thread.start()
-
 
 
 
