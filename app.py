@@ -257,7 +257,7 @@ def solver():
                 # yield 'data: fourth flag found\n\n'
                 flags.append(result)
             else:
-
+                status="unable to find last flag"
                 print("No word found.")
 
         get_browser()
