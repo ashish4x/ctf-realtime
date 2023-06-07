@@ -90,7 +90,7 @@
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ key: 'value' }) // Replace with your data to be sent
+                // body: JSON.stringify({ key: 'value' }) // Replace with your data to be sent
             })
                 .then(response => {
                     if (response.ok) {
@@ -109,9 +109,9 @@
 
 
         var button = document.getElementById("mainBtn");
-
-        button.addEventListener('click', myFunction);
         button.addEventListener('click', sendPostRequest);
+        button.addEventListener('click', myFunction);
+
 
 
         var statusSpan = document.getElementById('status');
