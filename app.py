@@ -128,9 +128,9 @@ def solver():
                 hashed_word = encrypt_with_salt(word, salt)
                 return hashed_word == encrypted_value
 
-            # Provide the salt and encrypted value to compare against
+            
 
-            encrypted_value_to_compare = md5  # Example encrypted value for the word "password"
+            encrypted_value_to_compare = md5 
             status="decrypting md5 hash"
             # Read words from file and compare encrypted values
             with open("list.txt", "r") as file:
