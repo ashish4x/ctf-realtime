@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Real-time Log Viewer</title>
+</head>
+
+<body>
+    <div id="logContainer">
+        <p>Status: <span id="status"></span></p>
+        <p>Flags: <span id="flags"></span></p>
+        <button onclick="startLogsStreaming()">FIND FLAGS</button>
+
+    </div>
+    <script>
+        var statusSpan = document.getElementById('status');
+        var flagsSpan = document.getElementById('flags');
+
+        function startLogsStreaming() {
+            var eventSource = new EventSource('/logs');
+
+            eventSource.onmessage = function (event) {
+                var eventData = JSON.parse(event.data);
+                console.log(eventData);
+                var status = eventData.status;
+                var flags = eventData.flags;
+
+
+                // var logElement = document.createElement('p');
+                // logElement.textContent = logMessage;
+                statusSpan.textContent = status;
+                flagsSpan.textContent = flags;
+            };
+        }
+
+
+    </script>
+</body>
+
+</html>
